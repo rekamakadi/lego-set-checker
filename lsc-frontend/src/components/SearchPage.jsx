@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { searchLegoSets } from '../services/rebrickable';
+import { Link } from 'react-router-dom';
+
 
 function SearchPage() {
   const [query, setQuery] = useState('');
@@ -29,10 +31,13 @@ function SearchPage() {
         onChange={handleSearch}
       />
       <ul>
-        {searchResults.map((set) => (
-          <li key={set.set_num}>
+        {searchResults.map((set, index) => (
+          <li key={index}>
             {set.name} ({set.year}){' '}
             <button onClick={() => addToCollection(set)}>Add to Collection</button>
+            <Link to={`/sets/${set.set_num}`}>
+              <button>View Details</button>
+            </Link>
           </li>
         ))}
       </ul>

@@ -4,8 +4,9 @@ import Navbar from './components/Navbar';
 import MainPage from './components/MainPage';
 import SearchPage from './components/SearchPage';
 import CollectionPage from './components/CollectionPage';
-import SetDetails from './components/SetDetails';
+import SDetails from './components/SDetails';
 import MissingPartsPage from './components/MissingPartsPage';
+import SetParts from './components/SetParts';
 
 function App() {
   return (
@@ -15,8 +16,9 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/collection" element={<CollectionPage />} />
-        <Route path="/set/:setId" element={<SetDetails />} />
+        <Route path="/set/:setId" element={<SDetails />} />
         <Route path="/missing-parts" element={<MissingPartsPage />} />
+        <Route path="/set/:setId/parts" element={<SetParts />} />
       </Routes>
     </Router>
   );

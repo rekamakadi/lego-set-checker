@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 function CollectionPage() {
   const [collection, setCollection] = useState([]);
@@ -9,7 +10,7 @@ function CollectionPage() {
   }, []);
 
   const removeFromCollection = (setId) => {
-    const updatedCollection = collection.filter((set) => set.id !== setId);
+    const updatedCollection = collection.filter((set) => set.set_num !== setId);
     localStorage.setItem('collection', JSON.stringify(updatedCollection));
     setCollection(updatedCollection);
   };
@@ -18,10 +19,13 @@ function CollectionPage() {
     <div>
       <h2>Your Collection</h2>
       <ul>
-        {collection.map((set) => (
-          <li key={set.id}>
+        {collection.map((set, index) => (
+          <li key={index}>
             {set.name} ({set.year}){' '}
-            <button onClick={() => removeFromCollection(set.id)}>Remove</button>
+            <button onClick={() => removeFromCollection(set.set_num)}>Remove</button>
+            <Link to={`/set/${set.set_num}`}>
+              <button>View Details</button>
+            </Link>
           </li>
         ))}
       </ul>
