@@ -35,7 +35,7 @@ function SearchPage() {
           <li key={index}>
             {set.name} ({set.year}){' '}
             <button onClick={() => addToCollection(set)}>Add to Collection</button>
-            <Link to={`/sets/${set.set_num}`}>
+            <Link to={`/set/${set.set_num}`}>
               <button>View Details</button>
             </Link>
           </li>
