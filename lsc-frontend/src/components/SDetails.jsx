@@ -27,8 +27,7 @@ function SDetails() {
           <img src={sDetails.set_img_url} alt={sDetails.name} />
           <p>Year: {sDetails.year}</p>
           <p>Pieces: {sDetails.num_parts}</p>
-          <Link to="/">Back</Link>
-          <Link to={`/set/${setId}/parts`}>Check Parts</Link>
+          <Link to="/collection">Back</Link>
         </>
       ) : (
         <p>Loading...</p>

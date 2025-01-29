@@ -23,9 +23,8 @@ function CollectionPage() {
           <li key={index}>
             {set.name} ({set.year}){' '}
             <button onClick={() => removeFromCollection(set.set_num)}>Remove</button>
-            <Link to={`/set/${set.set_num}`}>
-              <button>View Details</button>
-            </Link>
+            <Link to={`/set/${set.set_num}`}><button>View Details</button></Link>
+            <Link to={`/set/${set.set_num}/parts`}><button>Check Parts</button></Link>
           </li>
         ))}
       </ul>
