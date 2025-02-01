@@ -25,7 +25,7 @@ function MainPage() {
           to="/search"
           sx={{ mt: 3 }}
         >
-          Less Messness!
+          Less Mess!
         </Button>
       </GlassyTile>
     </Container>
