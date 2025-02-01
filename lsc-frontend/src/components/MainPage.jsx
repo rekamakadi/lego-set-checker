@@ -1,11 +1,17 @@
-import { Container, Typography, Button } from "@mui/material";
+import { Container, Typography, Button, Box } from "@mui/material";
 import { Link } from "react-router-dom";
-import GlassyTile from "./GlassyTile"; // Import the GlassyTile component
+import GlassyTile from "./GlassyTile";
 
 function MainPage() {
   return (
     <Container sx={{ textAlign: "center", mt: 4 }}>
       <GlassyTile>
+        <Box
+          component="img"
+          src="/logo.png"
+          alt="logo"
+          sx={{ width: 100, height: 100, mr: 2, borderRadius: "8px" }}
+        />
         <Typography variant="h3" gutterBottom>
           Welcome to LEGO Set Checker
         </Typography>
@@ -19,7 +25,7 @@ function MainPage() {
           to="/search"
           sx={{ mt: 3 }}
         >
-          Let's Start
+          Less Messness!
         </Button>
       </GlassyTile>
     </Container>

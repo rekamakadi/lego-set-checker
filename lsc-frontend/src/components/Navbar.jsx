@@ -41,7 +41,7 @@ function Navbar() {
         }}
       >
         <Toolbar sx={{ justifyContent: "space-between" }}>
-          <Typography variant="h6">LEGO Set Checker</Typography>
+        <Box component="img" src="/logo.png" alt="logo" sx={{ width: 50, height: 50, mr: 2, borderRadius: "8px" }} />
 
           {/* Desktop Navigation */}
           <Box sx={{ display: { xs: "none", md: "flex" }, gap: 2 }}>
