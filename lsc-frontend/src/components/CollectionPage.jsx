@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Container, Typography, Button, List, ListItem, ListItemText } from "@mui/material";
+import { Container, Typography, List } from "@mui/material";
 import GlassyTile from "./GlassyTile";
+import LegoSetListItem from "./LegoSetListItem";
 
 function CollectionPage() {
   const [collection, setCollection] = useState([]);
@@ -28,18 +28,15 @@ function CollectionPage() {
         ) : (
           <List>
             {collection.map((set, index) => (
-              <ListItem key={index}>
-                <ListItemText primary={`${set.name} (${set.year})`} />
-                <Button variant="contained" color="error" onClick={() => removeFromCollection(set.set_num)}>
-                  Remove
-                </Button>
-                <Button variant="outlined" component={Link} to={`/set/${set.set_num}`}>
-                  View Details
-                </Button>
-                <Button variant="outlined" component={Link} to={`/set/${set.set_num}/parts`}>
-                  Check Parts
-                </Button>
-              </ListItem>
+              <LegoSetListItem
+                key={index}
+                set={set}
+                actions={[
+                  { text: "Remove", variant: "outlined", color: "error", onClick: () => removeFromCollection(set.set_num) },
+                  { text: "View Details", variant: "outlined", link: `/set/${set.set_num}` },
+                  { text: "Check Parts", variant: "contained", link: `/set/${set.set_num}/parts` },
+                ]}
+              />
             ))}
           </List>
         )}

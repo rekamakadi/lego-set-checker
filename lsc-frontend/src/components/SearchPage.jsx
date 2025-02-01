@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { searchLegoSets } from "../services/rebrickable";
-import { Link } from "react-router-dom";
-import { Container, Typography, TextField, Button, List, ListItem, ListItemText } from "@mui/material";
-import GlassyTile from "./GlassyTile"; // Import the GlassyTile component
+import { Container, Typography, TextField, List } from "@mui/material";
+import GlassyTile from "./GlassyTile";
+import LegoSetListItem from "./LegoSetListItem";
 
 function SearchPage() {
   const [query, setQuery] = useState("");
@@ -38,15 +38,14 @@ function SearchPage() {
         />
         <List>
           {searchResults.map((set, index) => (
-            <ListItem key={index}>
-              <ListItemText primary={`${set.name} (${set.year})`} />
-              <Button variant="contained" color="primary" onClick={() => addToCollection(set)}>
-                Add to Collection
-              </Button>
-              <Button variant="outlined" component={Link} to={`/set/${set.set_num}`}>
-                View Details
-              </Button>
-            </ListItem>
+            <LegoSetListItem
+              key={index}
+              set={set}
+              actions={[
+                { text: "Add to Collection", color: "primary", onClick: () => addToCollection(set) },
+                { text: "View Details", variant: "outlined", link: `/set/${set.set_num}` },
+              ]}
+            />
           ))}
         </List>
       </GlassyTile>
