@@ -10,11 +10,11 @@ const apiClient = axios.create({
   },
 });
 
-export const searchLegoSets = async (query) => {
+export const searchLegoSets = async (query, page = 1) => {
   const response = await apiClient.get(`sets/`, {
-    params: { search: query, page_size: 10 },
+    params: { search: query, page_size: 10, page },
   });
-  return response.data.results;
+  return response.data;
 };
 
 export const getLegoSetDetails = async (setId) => {
