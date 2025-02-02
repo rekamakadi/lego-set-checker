@@ -1,18 +1,24 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { getLegoSetParts } from "../services/rebrickable";
-import { Container, Typography, Button, Card, CardContent, CardMedia, TextField, Grid } from "@mui/material";
+import { Container, Typography, Button, Grid2 } from "@mui/material";
 import GlassyTile from "./GlassyTile";
+import LegoSetListItem from "./LegoSetListItem";
+import PartListItem from "./PartListItem";
 
 function SetParts() {
   const { setId } = useParams();
   const [parts, setParts] = useState([]);
+  const [currentSet, setCurrentSet] = useState(null);
   const [foundParts, setFoundParts] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
       const partsList = await getLegoSetParts(setId);
       setParts(partsList);
+      const collection = JSON.parse(localStorage.getItem("collection")) || [];
+      const setToCheck = collection.find((set) => set.set_num === setId);
+      setCurrentSet(setToCheck);
       const savedData = JSON.parse(localStorage.getItem(`missing-${setId}`)) || {};
       setFoundParts(savedData);
     };
@@ -51,34 +57,27 @@ function SetParts() {
   };
 
   return (
-    <Container sx={{ textAlign: "center", mt: 4 }}>
+    <Container sx={{ textAlign: "center", mt: 4, maxWidth: "lg" }}>
       <GlassyTile>
         <Typography variant="h4" gutterBottom>
-          Check Parts
+          Check Parts for
         </Typography>
-        <Grid container spacing={2} justifyContent="center">
+        {currentSet && <LegoSetListItem set={currentSet} actions={[]} />}
+        <Grid2 container spacing={2} justifyContent="center" alignItems="stretch">
           {parts.map((part) => (
-            <Grid item xs={12} sm={6} md={4} key={part.id}>
-              <Card sx={{ padding: 2 }}>
-                <CardMedia component="img" image={part.part.part_img_url} alt={part.part.name} height="100" />
-                <CardContent>
-                  <Typography variant="body1">{part.part.name} (x{part.quantity})</Typography>
-                  <TextField
-                    type="number"
-                    value={foundParts[part.id] || 0}
-                    onChange={(e) => updatePartCount(part.id, Number(e.target.value), part.quantity)}
-                    inputProps={{ min: 0, max: part.quantity }}
-                    sx={{ width: "100%", mt: 1 }}
-                  />
-                </CardContent>
-              </Card>
-            </Grid>
+            <Grid2 item key={part.id} xs={6} sm={4} md={3} lg={2} sx={{ my: 2, display: "flex", justifyContent: "center" }}>
+              <PartListItem
+                part={part}
+                foundCount={foundParts[part.id] || 0}
+                updatePartCount={updatePartCount}
+              />
+            </Grid2>
           ))}
-        </Grid>
-        <Button variant="contained" color="primary" onClick={saveProgress} sx={{ mt: 3 }}>
+        </Grid2>
+        <Button variant="contained" color="primary" onClick={saveProgress} sx={{ mt: 4 }}>
           Save Progress
         </Button>
-        <Button variant="outlined" component={Link} to="/collection" sx={{ mt: 2 }}>
+        <Button variant="outlined" component={Link} to="/collection" sx={{ mt: 4 }}>
           Back to Collection
         </Button>
       </GlassyTile>
