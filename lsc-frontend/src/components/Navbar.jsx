@@ -25,7 +25,6 @@ function Navbar() {
     { text: "Home", path: "/" },
     { text: "Search", path: "/search" },
     { text: "Collection", path: "/collection" },
-    { text: "Missing Parts", path: "/missing-parts" },
   ];
 
   return (
