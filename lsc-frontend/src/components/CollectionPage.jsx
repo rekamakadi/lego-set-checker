@@ -13,6 +13,7 @@ function CollectionPage() {
 
   const removeFromCollection = (setId) => {
     const updatedCollection = collection.filter((set) => set.set_num !== setId);
+    localStorage.removeItem(`missing-${setId}`);
     localStorage.setItem("collection", JSON.stringify(updatedCollection));
     setCollection(updatedCollection);
   };

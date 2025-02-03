@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { getLegoSetDetails } from "../services/rebrickable";
 import { Container, Typography, Button, Card, CardMedia, CardContent, Box } from "@mui/material";
 import GlassyTile from "./GlassyTile";
 
 function SDetails() {
   const { setId } = useParams();
+  const navigate = useNavigate();
   const [sDetails, setSDetails] = useState(null);
 
   useEffect(() => {
@@ -38,9 +39,9 @@ function SDetails() {
                   <Button variant="contained" color="secondary" href={sDetails.set_url} target="_blank" rel="noopener noreferrer">
                     View on Rebrickable
                   </Button>
-                  <Button variant="contained" color="primary" component={Link} to="/collection">
-                    Back to Collection
-                  </Button>
+                  <Button variant="outlined" onClick={() => navigate(-1)} sx={{ mt: 1 }}>
+                  Back
+                </Button>
                 </Box>
               </CardContent>
             </GlassyTile>

@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Container, Typography, Button, List, ListItem, ListItemText, Grid, Card, CardContent } from "@mui/material";
+import { Container, Typography, Button, List, ListItem, ListItemText, Grid2, Card, CardContent } from "@mui/material";
 import GlassyTile from "./GlassyTile";
+import LegoSetListItem from "./LegoSetListItem";
 
 function MissingPartsPage() {
   const [collection, setCollection] = useState([]);
@@ -24,12 +25,12 @@ function MissingPartsPage() {
         {collection.length === 0 ? (
           <Typography variant="body1">No sets with missing parts.</Typography>
         ) : (
-          <Grid container spacing={2} justifyContent="center">
+          <Grid2 container spacing={2} justifyContent="center">
             {collection.map((set) => (
-              <Grid item xs={12} sm={6} md={4} key={set.set_num}>
+              <Grid2 item xs={12} sm={6} md={4} key={set.set_num}>
                 <Card sx={{ padding: 2 }}>
                   <CardContent>
-                    <Typography variant="h6">{set.name}</Typography>
+                  <LegoSetListItem set={set} actions={[]} />
                     <List>
                       {Object.entries(set.missingParts).map(([partId, missingCount]) => (
                         <ListItem key={partId}>
@@ -40,14 +41,14 @@ function MissingPartsPage() {
                     <Button variant="contained" component={Link} to={`/set/${set.set_num}`} sx={{ mt: 2 }}>
                       View Set
                     </Button>
-                    <Button variant="outlined" component={Link} to={`/set/${set.set_num}/parts`} sx={{ mt: 1 }}>
+                    <Button variant="outlined" component={Link} to={`/set/${set.set_num}/parts`} sx={{ mt: 2 }}>
                       Back to Check
                     </Button>
                   </CardContent>
                 </Card>
-              </Grid>
+              </Grid2>
             ))}
-          </Grid>
+          </Grid2>
         )}
       </GlassyTile>
     </Container>

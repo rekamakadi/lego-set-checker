@@ -10,7 +10,8 @@ function PartListItem({ part, foundCount, updatePartCount }) {
         sx={{ width: 80, height: 80, objectFit: "contain" }}
       />
       <CardContent sx={{ textAlign: "center", width: "100%", flexGrow: 1 }}>
-        <Typography variant="body2">Part ID: {part.part.part_num}</Typography>
+        <Typography variant="body1">Part Num: {part.part.part_num}</Typography>
+        <Typography variant="body2">Part ID: {part.id}</Typography>
         <Typography variant="body2">Required: {part.quantity}</Typography>
         <Box sx={{ mt: 1, width: "100%" }}>
           <TextField
