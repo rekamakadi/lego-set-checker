@@ -11,6 +11,7 @@ function SetParts() {
   const [parts, setParts] = useState([]);
   const [currentSet, setCurrentSet] = useState(null);
   const [foundParts, setFoundParts] = useState({});
+  const [showMissingOnly, setShowMissingOnly] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,7 +20,8 @@ function SetParts() {
       const collection = JSON.parse(localStorage.getItem("collection")) || [];
       const setToCheck = collection.find((set) => set.set_num === setId);
       setCurrentSet(setToCheck);
-      const savedData = JSON.parse(localStorage.getItem(`missing-${setId}`)) || {};
+      const savedData =
+        JSON.parse(localStorage.getItem(`missing-${setId}`)) || {};
       setFoundParts(savedData);
     };
     fetchData();
@@ -63,21 +65,59 @@ function SetParts() {
           Check Parts for
         </Typography>
         {currentSet && <LegoSetListItem set={currentSet} actions={[]} />}
-        <Grid2 container spacing={2} justifyContent="center" alignItems="stretch">
-          {parts.map((part) => (
-            <Grid2 item key={part.id} xs={6} sm={4} md={3} lg={2} sx={{ my: 2, display: "flex", justifyContent: "center" }}>
-              <PartListItem
-                part={part}
-                foundCount={foundParts[part.id] || 0}
-                updatePartCount={updatePartCount}
-              />
-            </Grid2>
-          ))}
+
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={() => setShowMissingOnly((prev) => !prev)}
+          sx={{ mb: 2 }}
+        >
+          {showMissingOnly ? "Show All Parts" : "Show Missing Parts"}
+        </Button>
+
+        <Grid2
+          container
+          spacing={2}
+          justifyContent="center"
+          alignItems="stretch"
+        >
+          {parts
+            .filter(
+              (part) =>
+                !showMissingOnly || (foundParts[part.id] || 0) < part.quantity
+            )
+            .map((part) => (
+              <Grid2
+                item
+                key={part.id}
+                xs={6}
+                sm={4}
+                md={3}
+                lg={2}
+                sx={{ my: 2, display: "flex", justifyContent: "center" }}
+              >
+                <PartListItem
+                  part={part}
+                  foundCount={foundParts[part.id] || 0}
+                  updatePartCount={updatePartCount}
+                />
+              </Grid2>
+            ))}
         </Grid2>
-        <Button variant="contained" color="primary" onClick={saveProgress} sx={{ mt: 4 }}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={saveProgress}
+          sx={{ mt: 4 }}
+        >
           Save Progress
         </Button>
-        <Button variant="outlined" component={Link} to="/collection" sx={{ mt: 4 }}>
+        <Button
+          variant="outlined"
+          component={Link}
+          to="/collection"
+          sx={{ mt: 4 }}
+        >
           Back to Collection
         </Button>
       </GlassyTile>
