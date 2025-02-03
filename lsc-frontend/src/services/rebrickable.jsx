@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_KEY = import.meta.env.REBRICKABLE_API_KEY;
+const API_KEY = import.meta.env.VITE_REBRICKABLE_API_KEY;
 const BASE_URL = 'https://rebrickable.com/api/v3/lego/';
 
 const apiClient = axios.create({
@@ -10,11 +10,11 @@ const apiClient = axios.create({
   },
 });
 
-export const searchLegoSets = async (query) => {
+export const searchLegoSets = async (query, page = 1) => {
   const response = await apiClient.get(`sets/`, {
-    params: { search: query, page_size: 10 },
+    params: { search: query, page_size: 10, page },
   });
-  return response.data.results;
+  return response.data;
 };
 
 export const getLegoSetDetails = async (setId) => {
